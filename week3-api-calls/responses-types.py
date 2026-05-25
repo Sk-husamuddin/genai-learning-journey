@@ -1,4 +1,5 @@
 import os
+import json
 from groq import Groq
 from dotenv import load_dotenv
 
@@ -18,4 +19,4 @@ response = client.chat.completions.create(
     messages=message
 )
 
-print(response)
+print(response.choices[0].message.content)
