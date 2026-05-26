@@ -74,7 +74,7 @@ Here are 3 quiz questions to test your understanding:
 
 You:quit
 Conversation saved ! Goodbye !!
-(venv) shaik-husamuddin@HMNsdell:~/genai-learning-journey/project-2-chatbot$ python3 chatbot.py
+ python3 chatbot.py
 ========================================
 HMN-Your Study Assistant
 ========================================
@@ -95,7 +95,7 @@ You:clear
 History cleared Successfully !!
 You:quit
 Conversation saved ! Goodbye !!
-(venv) shaik-husamuddin@HMNsdell:~/genai-learning-journey/project-2-chatbot$ python3 chatbot.py
+python3 chatbot.py
 ========================================
 HMN-Your Study Assistant
 ========================================
