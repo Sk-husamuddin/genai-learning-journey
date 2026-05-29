@@ -2,25 +2,136 @@
 <html>
     <head>
         <title>HMN Study assistant</title>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
+
+            body {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                padding: 12px;
+                box-sizing: border-box;
+                background-color: #fff;
+            }
+
+            .chat-layout {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                min-height: 0;
+                gap: 10px;
+            }
+
+            .ai-response {
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                background-color: #f7f7f7;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .user-msg {
+                background-color: #d1e7ff;
+                color: #1f2937;
+                border-radius: 12px;
+                padding: 12px 14px;
+                margin: 0;
+                margin-left: auto;
+                max-width: 75%;
+                align-self: flex-end;
+                line-height: 1.4;
+            }
+
+            .ai-msg {
+                background-color: #ffffff;
+                color: #111827;
+                border-radius: 12px;
+                padding: 14px 16px;
+                margin: 0;
+                margin-right: auto;
+                max-width: 82%;
+                align-self: flex-start;
+                border: 1px solid #d1d5db;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                line-height: 1.55;
+                white-space: pre-wrap;
+            }
+
+            .input-bar {
+                position: sticky;
+                bottom: 0;
+                z-index: 10;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 0 0;
+                background-color: #fff;
+                border-top: 1px solid #e5e7eb;
+            }
+
+            .user-input {
+                flex: 1;
+                min-width: 0;
+                padding: 10px 12px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                height: 50px;
+            }
+
+            #send-btn {
+                padding: 10px 14px;
+                border-radius: 6px;
+                border: 1px solid #2563eb;
+                background: #2563eb;
+                color: #fff;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
         <h2>HMN study assistant</h2>
-        <div id="output"></div>
-        <br>
-        <input type="text" id="userinput" placeholder="Ask anything">
-        <button id="send-btn">Send</button>
+        <div class="chat-layout">
+            <div id="output" class="ai-response"></div>
+            <div class="input-bar">
+                <input type="text" id="userinput" class="user-input" placeholder="Ask anything">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
     </body>
     <script>
         const output = document.getElementById("output");
         const userinput = document.getElementById("userinput");
         const sendbtn = document.getElementById("send-btn");
 
+        function addmessage(role,text){
+            const message = document.createElement("div");
+            message.classList.add(role==="user"?"user-msg":"ai-msg");
+            message.textContent=text;
+            output.appendChild(message);
+            output.scrollTop = output.scrollHeight;
+        }
+
         async function sendmessage(){
             const message = userinput.value.trim();
             if(!message){return;}
 
-            output.innerText="Thincking...";
+            addmessage("user",message);
             userinput.value="";
+
+            const thinkingMessage = document.createElement("div");
+            thinkingMessage.classList.add("ai-msg");
+            thinkingMessage.textContent = "Thinking...";
+            output.appendChild(thinkingMessage);
+            output.scrollTop = output.scrollHeight;
+
             try{
             const response = await fetch("http://localhost:8000/chat",{
                 method:"POST",
@@ -31,11 +142,17 @@
             })
 
             const data = await response.json();
-            output.innerText = data.reply;
+            thinkingMessage.textContent = data.reply;
         }catch(error){
-            output.innerText = "Error !!";
+            thinkingMessage.textContent = "Error !!";
         }
         }
         sendbtn.addEventListener("click",sendmessage);
+
+        userinput.addEventListener("keypress",(e)=>{
+                if(e.key === "Enter"){
+                    sendmessage();
+                }
+        })
     </script>
 </html>
