@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HMN Study assistant</title>
+    </head>
+    <body>
+        <h2>HMN study assistant</h2>
+        <div id="output"></div>
+        <br>
+        <input type="text" id="userinput" placeholder="Ask anything">
+        <button id="send-btn">Send</button>
+    </body>
+    <script>
+        const output = document.getElementById("output");
+        const userinput = document.getElementById("userinput");
+        const sendbtn = document.getElementById("send-btn");
+
+        async function sendmessage(){
+            const message = userinput.value.trim();
+            if(!message){return;}
+
+            output.innerText="Thincking...";
+            userinput.value="";
+            try{
+            const response = await fetch("http://localhost:8000/chat",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({
+                    message:message
+                })
+            })
+
+            const data = await response.json();
+            output.innerText = data.reply;
+        }catch(error){
+            output.innerText = "Error !!";
+        }
+        }
+        sendbtn.addEventListener("click",sendmessage);
+    </script>
+</html>
