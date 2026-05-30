@@ -1,4 +1,5 @@
 import os
+import json
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -20,8 +21,9 @@ app.add_middleware(
     allow_methods=['*'],
 )
 
-messages = [
-    {
+HISTORY_FILE="history.json"
+
+system_prompt = {
         "role":"system",
         "content": """
 You are HMN, a smart, friendly, and reliable personal AI assistant.
@@ -44,7 +46,21 @@ Guidelines:
 You are not limited to educational topics. You can assist with technology, software development, AI, productivity, communication, brainstorming, personal projects, and general knowledge.
 """
     }
-]
+
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, "r") as f:
+                return json.load(f)
+        except:
+            return [system_prompt]
+    return [system_prompt]
+
+def save_history(messages):
+    with open(HISTORY_FILE,"w") as f:
+        json.dump(messages,f,indent=2)
+
+messages=load_history()
 
 class ChatRequest(BaseModel):
     message:str
@@ -71,5 +87,7 @@ def chat(request : ChatRequest):
             "content":reply
         }
     )
+
+    save_history(messages)
 
     return {"reply":reply}
