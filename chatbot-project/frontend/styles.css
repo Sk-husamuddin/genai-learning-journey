@@ -4,12 +4,18 @@ html, body {
     }
 
     body {
-        min-height: 100vh;
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
         padding: 12px;
         box-sizing: border-box;
         background-color: #fff;
+        overflow: hidden;
+    }
+    h2{
+        text-align: center;
+        margin: 0 0 10px 0;
+        font-size: 1.5rem;
     }
 
     .chat-layout {
@@ -43,6 +49,7 @@ html, body {
         max-width: 75%;
         align-self: flex-end;
         line-height: 1.4;
+        word-wrap: break-word;
     }
 
     .ai-msg {
@@ -58,6 +65,8 @@ html, body {
         box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         line-height: 1.55;
         white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .input-bar {
@@ -79,6 +88,7 @@ html, body {
         border: 1px solid #ccc;
         border-radius: 6px;
         height: 50px;
+        font-size: 16px;
     }
 
     #send-btn {
@@ -89,67 +99,99 @@ html, body {
         color: #fff;
         cursor: pointer;
     }
-.input {
-border: 2px solid transparent;
-width: 15em;
-height: 2.5em;
-padding-left: 0.8em;
-outline: none;
-overflow: hidden;
-background-color: #F3F3F3;
-border-radius: 10px;
-transition: all 0.5s;
+
+    @media (max-width: 768px) {
+
+    body {
+        padding: 8px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .user-msg,
+    .ai-msg {
+        max-width: 90%;
+        font-size: 14px;
+    }
+
+    .input-bar {
+        gap: 6px;
+    }
+
+    .user-input {
+        height: 45px;
+        font-size: 16px;
+    }
+
+    #send-btn {
+        padding: 10px 12px;
+        white-space: nowrap;
+    }
 }
 
-.input:hover,
-.input:focus {
-border: 2px solid #4A9DEC;
-box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
-background-color: white;
+
+.input {
+    border: 2px solid transparent;
+    width: 15em;
+    height: 2.5em;
+    padding-left: 0.8em;
+    outline: none;
+    overflow: hidden;
+    background-color: #F3F3F3;
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+.input:hover,.input:focus {
+    border: 2px solid #4A9DEC;
+    box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+    background-color: white;
 }
 
 button {
-font-family: inherit;
-font-size: 20px;
-background: royalblue;
-color: white;
-padding: 0.7em 1em;
-padding-left: 0.9em;
-display: flex;
-align-items: center;
-border: none;
-border-radius: 16px;
-overflow: hidden;
-transition: all 0.2s;
-cursor: pointer;
+    font-family: inherit;
+    font-size: 20px;
+    background: royalblue;
+    color: white;
+    padding: 0.7em 1em;
+    padding-left: 0.9em;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
 }
 
 button span {
-display: block;
-margin-left: 0.3em;
-transition: all 0.3s ease-in-out;
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
 }
 
 button svg {
-display: block;
-transform-origin: center center;
-transition: transform 0.3s ease-in-out;
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
 }
 
 button:hover .svg-wrapper {
-animation: fly-1 0.6s ease-in-out infinite alternate;
+    animation: fly-1 0.6s ease-in-out infinite alternate;
 }
 
 button:hover svg {
-transform: translateX(1.2em) rotate(45deg) scale(1.1);
+    transform: translateX(1.2em) rotate(45deg) scale(1.1);
 }
 
 button:hover span {
-transform: translateX(5em);
+    transform: translateX(5em);
 }
 
 button:active {
-transform: scale(0.95);
+    transform: scale(0.95);
 }
 
 @keyframes fly-1 {
