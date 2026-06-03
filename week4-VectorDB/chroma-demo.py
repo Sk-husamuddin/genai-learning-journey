@@ -16,7 +16,7 @@ collections.add(
 )
 
 results = collections.query(
-    query_texts=["How can i travel faster?"],
+    query_texts=["How can i travel faster"],
     n_results=3
 )
 
