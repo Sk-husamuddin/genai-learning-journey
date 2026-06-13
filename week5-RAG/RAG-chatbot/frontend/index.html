@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Q&A Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <h1>PDF Q&A Chatbot</h1>
+        <p>Upload your PDFs and ask anything!</p>
+    </div>
+
+    <div class="upload-section">
+        <input type="file" id="pdfInput" accept=".pdf" multiple>
+        <button id="uploadBtn">Upload PDF</button>
+        <div id="uploadStatus"></div>
+        <div id="pdfList"></div>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="message bot-message">
+            Hello! Upload a PDF and ask me anything!
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input 
+            type="text" 
+            id="questionInput" 
+            placeholder="Type your question..."
+        >
+        <button id="sendBtn">→</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
