@@ -16,12 +16,12 @@ def chunk_text(text, chunk_size=500, overlap=50):
         start = next_start
     return chunks
 
-def load_pdf(file_path):
+def load_pdf(file_path,display_name=None):
     chunks = []
     metadata = []
     
     doc = fitz.open(file_path)
-    filename = os.path.basename(file_path)
+    filename = display_name or os.path.basename(file_path)
     
     for page_num, page in enumerate(doc, start=1):
         text = page.get_text()

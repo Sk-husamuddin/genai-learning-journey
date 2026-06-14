@@ -31,7 +31,7 @@ async def upload_pdf(file:UploadFile=File(...)):
     with open(temp_path,"wb") as f:
         shutil.copyfileobj(file.file,f)
     
-    chunks,metadata=load_pdf(temp_path)
+    chunks,metadata=load_pdf(temp_path,display_name=file.filename)
     add_pdf_to_collection(chunks,metadata,file.filename)
 
     os.remove(temp_path)
