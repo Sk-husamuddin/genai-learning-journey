@@ -1,7 +1,7 @@
 import os
 import shutil
 from fastapi import FastAPI
-from fastapi import UploadFile,File
+from fastapi import UploadFile,File,Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pdf_loader import load_pdf
@@ -17,11 +17,11 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-loaded_pdfs=[]
+loaded_pdfs={}
 
 @app.post("/upload")
 
-async def upload_pdf(file:UploadFile=File(...)):
+async def upload_pdf(file:UploadFile=File(...),session_id:str=Form(...)):
 
     if not file.filename.endswith(".pdf"):
         return {"error":"Uploaded file should be PDF only !"}
@@ -32,12 +32,20 @@ async def upload_pdf(file:UploadFile=File(...)):
         shutil.copyfileobj(file.file,f)
     
     chunks,metadata=load_pdf(temp_path,display_name=file.filename)
+
+    for m in metadata:
+        m["session_id"]=session_id
+
     add_pdf_to_collection(chunks,metadata,file.filename)
+
 
     os.remove(temp_path)
 
-    if file.filename not in loaded_pdfs:
-        loaded_pdfs.append(file.filename)
+    if session_id not in loaded_pdfs:
+        loaded_pdfs[session_id]=[]
+
+    if file.filename not in loaded_pdfs[session_id]:
+        loaded_pdfs[session_id].append(file.filename)
     
     return {
         "message":f"{file.filename} is successfullt loaded",
@@ -47,6 +55,7 @@ async def upload_pdf(file:UploadFile=File(...)):
 
 class Question(BaseModel):
     question:str
+    session_id:str
 
 @app.post("/ask")
 
@@ -64,7 +73,7 @@ async def ask_question(body:Question):
             "sources":[]
         }
     
-    answer,sources=get_answer(body.question)
+    answer,sources=get_answer(body.question,body.session_id)
 
     return {
         "answer":answer,

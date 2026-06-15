@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --paper: #EDE7DA;
+  --paper-line: #D9D0BD;
+  --card: #F8F4E9;
+  --ink: #2F3633;
+  --ink-soft: #767C72;
+  --accent: #A6402C;
+  --accent-soft: #DCE5D4;
+  --user-bg: #2F3633;
+  --user-fg: #F8F4E9;
+  --radius: 4px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 35px,
+    var(--paper-line) 35px,
+    var(--paper-line) 36px
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 80px;
+}
+
+/* ---------- Header ---------- */
+.header {
+  width: 100%;
+  max-width: 640px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.header h1 {
+  font-family: 'Spectral', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  letter-spacing: 0.02em;
+}
+
+.header p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.header::after {
+  content: "REF. NO. 003";
+  position: absolute;
+  right: 0;
+  top: 4px;
+  font-size: 0.7rem;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  padding: 2px 8px;
+  border-radius: var(--radius);
+  transform: rotate(3deg);
+}
+
+/* ---------- Upload section ---------- */
+.upload-section {
+  width: 100%;
+  max-width: 640px;
+  background: var(--card);
+  border: 1px dashed var(--ink-soft);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+#pdfInput {
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+  margin-right: 8px;
+}
+
+#uploadBtn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+#uploadBtn:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--card);
+}
+
+#uploadBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#uploadStatus {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  min-height: 1.2em;
+}
+
+#pdfList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+#pdfList div {
+  font-size: 0.7rem;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 4px 8px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Chat window ---------- */
+.chat-window {
+  width: 100%;
+  max-width: 640px;
+  background: var(--card);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 16px;
+  height: 420px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.message {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.bot-message {
+  align-self: flex-start;
+  background: var(--accent-soft);
+  /*border-left: 3px solid var(--accent);*/
+}
+
+.user-message {
+  align-self: flex-end;
+  background: var(--user-bg);
+  color: var(--user-fg);
+}
+
+/* ---------- Sources (citation stamps) ---------- */
+.sources {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--ink-soft);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.sources div {
+  border: 1px dashed var(--accent);
+  color: var(--accent);
+  border-radius: var(--radius);
+  padding: 3px 8px;
+  transform: rotate(-1.5deg);
+  background: var(--card);
+}
+
+/* ---------- Input area ---------- */
+.input-area {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  gap: 8px;
+}
+
+#questionInput {
+  flex: 1;
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+}
+
+#questionInput:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#sendBtn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 1.1rem;
+  width: 48px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--card);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+#sendBtn:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+#sendBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Scrollbar ---------- */
+.chat-window::-webkit-scrollbar {
+  width: 8px;
+}
+.chat-window::-webkit-scrollbar-thumb {
+  background: var(--paper-line);
+  border-radius: 4px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  .header::after {
+    display: none;
+  }
+  .chat-window {
+    height: 360px;
+  }
+  .message {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .upload-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .file-label, #uploadBtn {
+    text-align: center;
+  }
+
+  .file-name {
+    text-align: center;
+    white-space: normal;
+  }
+}

@@ -8,6 +8,8 @@ const chatWindow = document.getElementById("chatWindow")
 const questionInput = document.getElementById("questionInput")
 const sendBtn = document.getElementById("sendBtn")
 
+const session_id = crypto.randomUUID();
+
 uploadBtn.addEventListener("click",async ()=>{
     const file=pdfInput.files[0]
 
@@ -22,6 +24,7 @@ uploadBtn.addEventListener("click",async ()=>{
     try{
     const formdata=new FormData();
     formdata.append("file",file);
+    formdata.append("session_id",session_id);
     
     const response = await fetch(`${BACKEND_URL}/upload`,{
         method:"POST",
@@ -92,7 +95,10 @@ sendBtn.addEventListener("click",async ()=>{
                             headers:{
                                 "Content-Type":"application/json"
                             },
-                            body:JSON.stringify({question:question})
+                            body:JSON.stringify({
+                                question:question,
+                                session_id:session_id
+                            })
         });
 
         const data = await response.json();

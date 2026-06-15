@@ -27,11 +27,12 @@ def add_pdf_to_collection(chunks,metadata,pdfname):
     )
     print(f"added {len(chunks)} chunks from {pdfname}")
 
-def search(query,n_results=3):
+def search(query,session_id,n_results=3):
     query_embeddings=model.encode(query).tolist()
 
     results=collection.query(
         query_embeddings=[query_embeddings],
+        where={"session_id":session_id},
         n_results=n_results,
         include=["metadatas","documents","distances"]
     )

@@ -21,7 +21,9 @@ Rules:
 1. Answer ONLY from the context below
 2. If answer not in context → say "I don't know"
 3. Never make up information
-4. Be concise and clear
+4. Provide a clear, well-explained answer using 
+   full sentences. Elaborate on relevant details 
+   from the context where helpful.
 
 Context:
 {context}
@@ -30,8 +32,8 @@ Question: {question}
 
 Answer:"""
 
-def get_answer(question):
-    chunks, metadatas = search(question, n_results=3)
+def get_answer(question,session_id):
+    chunks, metadatas = search(question,session_id, n_results=3)
     prompt = build_prompt(question, chunks, metadatas)
     
     response = client.chat.completions.create(
