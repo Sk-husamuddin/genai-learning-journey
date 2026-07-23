@@ -1,37 +1,50 @@
-[
-  {"instruction": "What is zero-shot prompting?", "response": "Asking a model to perform a task with no examples, relying only on its pretrained knowledge."},
-  {"instruction": "What is few-shot prompting?", "response": "Giving the model a handful of examples in the prompt to demonstrate the desired pattern before asking it to respond."},
-  {"instruction": "What is chain-of-thought prompting?", "response": "Prompting the model to reason step-by-step before giving a final answer, improving accuracy on complex tasks."},
-  {"instruction": "What is prompt injection?", "response": "An attack where malicious input tricks a model into ignoring its original instructions and following the attacker's instead."},
-  {"instruction": "Why convert Groq response objects to dicts before storing in MongoDB?", "response": "MongoDB can't serialize custom Python objects directly; converting to plain dicts makes them JSON-serializable."},
-  {"instruction": "What causes silent localhost fallback in MongoDB connections?", "response": "A mismatched environment variable name, like using MONGODB_URL instead of MONGODB_URI, causes the driver to default to localhost instead of erroring."},
-  {"instruction": "Why replace eval() with asteval?", "response": "eval() can execute arbitrary malicious code, while asteval restricts execution to safe mathematical expressions only."},
-  {"instruction": "Why is datetime.utcnow() deprecated?", "response": "It returns a naive datetime with no timezone info; datetime.now(timezone.utc) is the timezone-aware replacement."},
-  {"instruction": "What is a tool_call_id used for?", "response": "It uniquely identifies a single tool invocation, letting the model match each tool's result back to the correct call in multi-tool conversations."},
-  {"instruction": "Why shouldn't error results be cached?", "response": "Caching a failed or error response would serve that same failure again on future identical queries instead of retrying."},
-  {"instruction": "What is sentence-transformers used for?", "response": "Generating dense vector embeddings from text, commonly used for semantic search and RAG retrieval."},
-  {"instruction": "Why use overlap chunking for documents?", "response": "Adding overlap between chunks preserves context across chunk boundaries, preventing relevant information from being split awkwardly."},
-  {"instruction": "What is Pinecone?", "response": "A managed cloud vector database used for storing and querying embeddings at scale."},
-  {"instruction": "Why did the ChromaDB session-isolation bug occur?", "response": "All users shared one collection with no session filter, so queries returned other users' documents alongside their own."},
-  {"instruction": "How was the ChromaDB session bug fixed?", "response": "By tagging each chunk with a unique session_id at insert time and filtering retrieval with a matching where clause."},
-  {"instruction": "Why did deployment fail on Render for the RAG app?", "response": "sentence-transformers and torch exceeded Render's free-tier RAM limits."},
-  {"instruction": "What is a Cloudflare Tunnel used for?", "response": "Exposing a locally-hosted server to a public URL without needing your own cloud infrastructure."},
-  {"instruction": "What is function calling in LLMs?", "response": "A capability where the model outputs a structured request to invoke a specific tool/function, rather than just plain text."},
-  {"instruction": "What is the ReAct pattern?", "response": "Reason + Act — the model alternates between reasoning about what to do and taking a tool action, using each result to inform the next step."},
-  {"instruction": "What is LangGraph used for?", "response": "Building stateful, graph-structured agent workflows with explicit nodes, edges, and conditional routing."},
-  {"instruction": "What does a conditional edge do in LangGraph?", "response": "It decides which node to execute next based on the current state, enabling branching logic like looping back for more tool calls."},
-  {"instruction": "What is MemorySaver in LangGraph?", "response": "A checkpointer that persists graph state across turns using a thread_id, enabling multi-turn memory."},
-  {"instruction": "What is a planner node in an agent graph?", "response": "A node that generates an upfront multi-step plan before execution begins, which later nodes can reference while acting."},
-  {"instruction": "What is MCP?", "response": "Model Context Protocol — a standard that lets AI models connect to external tool servers in a consistent, interoperable way."},
-  {"instruction": "Why is a threading bridge needed for MCP calls inside FastAPI?", "response": "FastAPI's event loop is already running, so calling asyncio.run() directly would fail; running the async call in a separate thread avoids that conflict."},
-  {"instruction": "What is CORS?", "response": "Cross-Origin Resource Sharing — a browser security rule that controls whether a frontend on one domain can make requests to a backend on another."},
-  {"instruction": "What is FastAPI used for?", "response": "A Python web framework for building APIs quickly, with built-in request validation and async support."},
-  {"instruction": "What does async/await do in Python?", "response": "Lets a function pause during I/O operations like network calls without blocking the rest of the program."},
-  {"instruction": "What is streaming in LLM APIs?", "response": "Sending the model's response token-by-token as it's generated, instead of waiting for the full completion."},
-  {"instruction": "What is the difference between Pipeline and Trainer in Hugging Face?", "response": "Pipeline runs quick inference with a pretrained model; Trainer handles the actual training/fine-tuning loop."},
-  {"instruction": "What does the PEFT library do?", "response": "Provides Parameter-Efficient Fine-Tuning methods like LoRA, letting you train a small subset of a model's parameters instead of all of them."},
-  {"instruction": "Why does Ollama default to a quantized model?", "response": "So the model's memory footprint stays small enough to run on typical consumer hardware without a dedicated GPU."},
-  {"instruction": "Where does Ollama store downloaded models on Windows?", "response": "Under C:\\Users\\<username>\\.ollama\\models, split into manifests and blobs folders."},
-  {"instruction": "Why doesn't a local Ollama model need an API key?", "response": "The model runs on your own machine, so there's no third party to authenticate to or bill you."},
-  {"instruction": "Why is training more memory-intensive than inference?", "response": "Training needs gradients and optimizer states stored per parameter alongside the weights, while inference only needs the weights themselves."}
-]
+{"instruction": "What is a transformer in AI?", "response": "A neural network architecture that uses self-attention to process sequences in parallel, rather than sequentially like RNNs."}
+{"instruction": "What does the attention mechanism do?", "response": "It lets the model weigh how relevant each token is to every other token when building context."}
+{"instruction": "What are Q, K, V in attention?", "response": "Query, Key, and Value vectors — Query asks 'what am I looking for', Key represents 'what do I contain', Value holds the actual information passed forward."}
+{"instruction": "What is RLHF?", "response": "Reinforcement Learning from Human Feedback — a training step where human preference rankings fine-tune a model's outputs toward helpfulness and safety."}
+{"instruction": "What is hallucination in LLMs?", "response": "When a model generates confident-sounding but factually incorrect or fabricated information."}
+{"instruction": "What is RAG?", "response": "Retrieval-Augmented Generation — fetching relevant external documents at query time and feeding them to the model as context, instead of relying only on memorized knowledge."}
+{"instruction": "Why do we chunk documents before embedding them?", "response": "Because embedding models have limited input size, and smaller chunks give more precise, relevant retrieval matches than embedding whole documents."}
+{"instruction": "What is ChromaDB used for?", "response": "A vector database that stores embeddings and enables fast similarity search for retrieval tasks like RAG."}
+{"instruction": "What is an embedding?", "response": "A numerical vector representation of text that captures its meaning, allowing semantic comparison between pieces of text."}
+{"instruction": "What is quantization?", "response": "Reducing the numeric precision of model weights (e.g. 16-bit to 4-bit) to shrink memory usage, with a small accuracy tradeoff."}
+{"instruction": "What is LoRA?", "response": "Low-Rank Adaptation — a fine-tuning method that freezes the base model and trains small additional low-rank matrices instead of all parameters."}
+{"instruction": "What is QLoRA?", "response": "LoRA combined with quantization — the frozen base model is stored in 4-bit while the trainable LoRA matrices stay in higher precision."}
+{"instruction": "What is the difference between fine-tuning and RAG?", "response": "Fine-tuning changes the model's weights to adjust behavior or style; RAG leaves weights untouched and instead supplies fresh facts as context at query time."}
+{"instruction": "What is a ReAct agent?", "response": "An agent pattern that alternates between reasoning steps and tool-calling actions, using each tool result to inform the next reasoning step."}
+{"instruction": "Why use MongoDB for tool-call caching?", "response": "It lets you store and reuse prior tool results by key, avoiding redundant API calls for repeated queries."}
+{"instruction": "What is zero-shot prompting?", "response": "Asking a model to perform a task with no examples, relying only on its pretrained knowledge."}
+{"instruction": "What is few-shot prompting?", "response": "Giving the model a handful of examples in the prompt to demonstrate the desired pattern before asking it to respond."}
+{"instruction": "What is chain-of-thought prompting?", "response": "Prompting the model to reason step-by-step before giving a final answer, improving accuracy on complex tasks."}
+{"instruction": "What is prompt injection?", "response": "An attack where malicious input tricks a model into ignoring its original instructions and following the attacker's instead."}
+{"instruction": "Why convert Groq response objects to dicts before storing in MongoDB?", "response": "MongoDB can't serialize custom Python objects directly; converting to plain dicts makes them JSON-serializable."}
+{"instruction": "What causes silent localhost fallback in MongoDB connections?", "response": "A mismatched environment variable name, like using MONGODB_URL instead of MONGODB_URI, causes the driver to default to localhost instead of erroring."}
+{"instruction": "Why replace eval() with asteval?", "response": "eval() can execute arbitrary malicious code, while asteval restricts execution to safe mathematical expressions only."}
+{"instruction": "Why is datetime.utcnow() deprecated?", "response": "It returns a naive datetime with no timezone info; datetime.now(timezone.utc) is the timezone-aware replacement."}
+{"instruction": "What is a tool_call_id used for?", "response": "It uniquely identifies a single tool invocation, letting the model match each tool's result back to the correct call in multi-tool conversations."}
+{"instruction": "Why shouldn't error results be cached?", "response": "Caching a failed or error response would serve that same failure again on future identical queries instead of retrying."}
+{"instruction": "What is sentence-transformers used for?", "response": "Generating dense vector embeddings from text, commonly used for semantic search and RAG retrieval."}
+{"instruction": "Why use overlap chunking for documents?", "response": "Adding overlap between chunks preserves context across chunk boundaries, preventing relevant information from being split awkwardly."}
+{"instruction": "What is Pinecone?", "response": "A managed cloud vector database used for storing and querying embeddings at scale."}
+{"instruction": "Why did the ChromaDB session-isolation bug occur?", "response": "All users shared one collection with no session filter, so queries returned other users' documents alongside their own."}
+{"instruction": "How was the ChromaDB session bug fixed?", "response": "By tagging each chunk with a unique session_id at insert time and filtering retrieval with a matching where clause."}
+{"instruction": "Why did deployment fail on Render for the RAG app?", "response": "sentence-transformers and torch exceeded Render's free-tier RAM limits."}
+{"instruction": "What is a Cloudflare Tunnel used for?", "response": "Exposing a locally-hosted server to a public URL without needing your own cloud infrastructure."}
+{"instruction": "What is function calling in LLMs?", "response": "A capability where the model outputs a structured request to invoke a specific tool/function, rather than just plain text."}
+{"instruction": "What is the ReAct pattern?", "response": "Reason + Act — the model alternates between reasoning about what to do and taking a tool action, using each result to inform the next step."}
+{"instruction": "What is LangGraph used for?", "response": "Building stateful, graph-structured agent workflows with explicit nodes, edges, and conditional routing."}
+{"instruction": "What does a conditional edge do in LangGraph?", "response": "It decides which node to execute next based on the current state, enabling branching logic like looping back for more tool calls."}
+{"instruction": "What is MemorySaver in LangGraph?", "response": "A checkpointer that persists graph state across turns using a thread_id, enabling multi-turn memory."}
+{"instruction": "What is a planner node in an agent graph?", "response": "A node that generates an upfront multi-step plan before execution begins, which later nodes can reference while acting."}
+{"instruction": "What is MCP?", "response": "Model Context Protocol — a standard that lets AI models connect to external tool servers in a consistent, interoperable way."}
+{"instruction": "Why is a threading bridge needed for MCP calls inside FastAPI?", "response": "FastAPI's event loop is already running, so calling asyncio.run() directly would fail; running the async call in a separate thread avoids that conflict."}
+{"instruction": "What is CORS?", "response": "Cross-Origin Resource Sharing — a browser security rule that controls whether a frontend on one domain can make requests to a backend on another."}
+{"instruction": "What is FastAPI used for?", "response": "A Python web framework for building APIs quickly, with built-in request validation and async support."}
+{"instruction": "What does async/await do in Python?", "response": "Lets a function pause during I/O operations like network calls without blocking the rest of the program."}
+{"instruction": "What is streaming in LLM APIs?", "response": "Sending the model's response token-by-token as it's generated, instead of waiting for the full completion."}
+{"instruction": "What is the difference between Pipeline and Trainer in Hugging Face?", "response": "Pipeline runs quick inference with a pretrained model; Trainer handles the actual training/fine-tuning loop."}
+{"instruction": "What does the PEFT library do?", "response": "Provides Parameter-Efficient Fine-Tuning methods like LoRA, letting you train a small subset of a model's parameters instead of all of them."}
+{"instruction": "Why does Ollama default to a quantized model?", "response": "So the model's memory footprint stays small enough to run on typical consumer hardware without a dedicated GPU."}
+{"instruction": "Where does Ollama store downloaded models on Windows?", "response": "Under C:\\\\Users\\\\<username>\\\\.ollama\\\\models, split into manifests and blobs folders."}
+{"instruction": "Why doesn't a local Ollama model need an API key?", "response": "The model runs on your own machine, so there's no third party to authenticate to or bill you."}
+{"instruction": "Why is training more memory-intensive than inference?", "response": "Training needs gradients and optimizer states stored per parameter alongside the weights, while inference only needs the weights themselves."}
